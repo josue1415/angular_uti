@@ -1,0 +1,111 @@
+<div class="content-wrapper">
+  <div class="row col-12">
+    <div
+      class="col-md-5 col-xl-3 col-lg-5 card"
+      style="margin-left: 0px; position: relative"
+    >
+      <br /><br />
+      <div class="">
+        <!-- Button add new video by admin user -->
+        <div style="float: right; display: grid" *ngIf="usuarioService.estaAutenticado() && usuarioService.obtenerRol()">
+          <i
+            class="far fa-plus-square btn"
+            title="Agregar video"
+            [routerLink]="['/addvideo/', id]"
+            routerLinkActive="router-link-active"
+          ></i>
+        </div>
+        <!-- Collapsable list of content -->
+        <div class="container-fluid">
+          <h3
+            data-toggle="collapse"
+            data-target="#collapseTopics"
+            href="#collapseTopics"
+            role="button"
+            aria-expanded="true"
+            aria-controls="collapseTopics"
+          >
+            Contenido <i class="fas fa-angle-up animation"></i>
+          </h3>
+          <!-- List of video content -->
+          <div *ngIf="ObjectContentAPI != null">
+            <ul *ngFor="let item of ObjectContentAPI; let i = index">
+              <li class="collapse show speed" id="collapseTopics">
+                <button
+                  type="button"
+                  class="btn button {{ cont == 0 && i == 0 ? 'mark' : '' }}"
+                  (click)="toVideo(item.id)"
+                  style="word-wrap: normal"
+                >
+                  {{ item.tema }}
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Show the topic, youtube video and description by video topic-->
+    <div class="col-md-7 col-lg-6 col-xl-8 container-fluid">
+      <div *ngIf="loadingRouteConfig" style="align-content: center; text-align: center;">
+        <div class="loading">    
+          <div class="loading-text">
+            <img width="150px" src="assets/img/loading.gif" alt="loadingImage" >
+            <span class="loading-text-words">U</span>
+            <span class="loading-text-words">E</span>
+            <span class="loading-text-words">S</span>
+            <span class="loading-text-words">-</span>
+            <span class="loading-text-words">F</span>
+            <span class="loading-text-words">M</span>
+            <span class="loading-text-words">P</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="ObjectContentAPI?.length; else notVideo">
+        <div *ngFor="let content of ObjectContentAPI">
+          <div *ngIf="content.id == idVideo">
+            <div class="card-btn" style="float: right" *ngIf="usuarioService.estaAutenticado() && usuarioService.obtenerRol()">
+              <i
+                class="far fa-edit btn"
+                title="Editar"
+                [routerLink]="['/addvideo', id, idVideo]"
+                routerLinkActive="router-link-active"
+              ></i>
+              <i
+                class="far fa-trash-alt btn"
+                title="Eliminar"
+                (click)="delete(content.id)"
+              ></i>
+            </div>
+            <br />
+            <h2>{{ content.tema }}</h2>
+            <div class="embed-responsive embed-responsive-21by9">
+              <iframe
+                class="embed-responsive-item"
+                allowfullscreen
+                [src]="content.enlace | safe: 'resourceUrl'"
+              >
+              </iframe>
+            </div>
+            <br />
+            <div style="word-wrap: break-word" id="content" name="content">
+              <div [innerHTML]="content.descripcion | safe: 'html'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Show in case not exist any video -->
+<ng-template #notVideo>
+  <div *ngIf="usuarioService.estaAutenticado() && usuarioService.obtenerRol()">
+  <div
+    class="container btn card"
+    style="margin-top: 20%"
+    [routerLink]="['/addvideo/', id]"
+  >
+    <h4>La categoría no cuenta con videos, por favor ingrese uno.</h4>
+  </div>
+</div>
+</ng-template>

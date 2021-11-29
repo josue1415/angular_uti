@@ -1,0 +1,94 @@
+@import url(https://fonts.googleapis.com/css?family=Quattrocento+Sans);
+
+@mixin position-center($text-align: center) {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	text-align: $text-align;
+}
+
+.loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.loading-text {
+	@include position-center;
+	width: 100%;
+	height: 100px;
+	line-height: 100px;
+	span {
+		display: inline-block;
+		margin: 0 5px;
+		color: rgb(17, 1, 1);
+    font-family: 'Quattrocento Sans', sans-serif;
+		@for $i from 0 through 6 {
+			&:nth-child(#{$i + 1}) {
+				filter: blur(0px);
+				animation: blur-text 1.5s (#{$i/5})+s infinite linear alternate;
+			}
+		}
+	}
+}
+
+@keyframes blur-text {
+	0% {filter: blur(0px);}
+	100% {filter: blur(4px);}
+}
+
+.card-resp {
+  padding: 21px;
+  line-height: 0%;
+}
+
+.margin {
+  margin-bottom: -10px;
+}
+
+.item {
+  line-height: 4;
+  position: relative;
+}
+
+.item:before {
+  position: absolute;
+  bottom: 0;
+  content: "";
+  width: 0;
+  height: 3px;
+  background-color: rgba(134, 16, 16, 0.253);
+  transition: all 0.1s;
+}
+.item:hover:before {
+  width: 100%;
+}
+
+.tres:before {
+  left: 50%;
+}
+
+.tres:hover:before {
+  left: 0;
+}
+
+h5 {
+  font-weight: normal;
+  font-size: 19px;
+}
+
+p {
+  box-shadow: 0 2.8px 2.2px rgba(255, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(150, 19, 19, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(128, 11, 11, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(185, 14, 14, 0.12);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 400;
+}

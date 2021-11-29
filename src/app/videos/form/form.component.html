@@ -1,0 +1,73 @@
+<div class="content-wrapper">
+    <div class="container">
+      <br /><br />
+      <h2> {{!id2 ? 'Agregar Video.' : 'Modificar Video'}}</h2>
+      <button
+        class="btn btn-primary"
+        [routerLink]="['/indice_videos', idReturn]"
+        style="float: right"
+      >
+        Cancelar
+      </button>
+      <br />
+      <form>
+        <div class="mb-3">
+          <label for="tema" class="form-label">Ingrese el tema:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="tema"
+            name="tema"
+            aria-describedby="tema"
+            [(ngModel)]="noticia.tema"
+            required minlength="5" #tema="ngModel"
+          >
+          <!-- <div class="alert alert-danger" *ngIf="tema.invalid && (tema.touched)">
+            <div *ngIf="tema.errors?.required">
+              El tema es requerido
+            </div>
+          </div> -->
+        </div>
+        <div class="mb-3">
+          <label for="img" class="form-label">Ingrese enlace del video:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="img"
+            name="img"
+            aria-describedby="img"
+            placeholder="www.youtube.com/embed/"
+            [(ngModel)]="noticia.enlace"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="contenido" class="form-label">Agregue la descripción del video:</label>
+        </div>
+        <div class="col-sm-12">
+          <div id="toolbar">
+            <div id="editor" style="height: 400px"></div>
+          </div>
+        </div>
+        <div id="emailHelp" class="form-text">
+          Puede agregar texto, imagenes, e incluso otros videos cuantas veces desee.
+        </div>
+        <br />
+        <button
+          class="btn btn-success"
+          role="button"
+          (click) = 'create()' *ngIf="!id2; else updateelse">
+          Agregar video
+        </button>
+        <ng-template #updateelse>
+          <button
+          class="btn btn-success"
+          role="button"
+          (click) = 'update()'>
+          Actualizar video
+        </button>
+        </ng-template>
+      </form>
+    </div>
+  </div>
+  

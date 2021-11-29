@@ -1,0 +1,54 @@
+<div class="content-wrapper">
+  <div class="container">
+    <div *ngIf="loadingRouteConfig" style="align-content: center; text-align: center;">
+      <div class="loading">
+        <div class="loading-text">
+          <img width="150px" src="assets/img/loading.gif" alt="loadingImage" >
+          <span class="loading-text-words">U</span>
+          <span class="loading-text-words">E</span>
+          <span class="loading-text-words">S</span>
+          <span class="loading-text-words">-</span>
+          <span class="loading-text-words">F</span>
+          <span class="loading-text-words">M</span>
+          <span class="loading-text-words">P</span>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <div *ngFor="let not of data">
+      <h4 class="card box" style="text-align: center; padding: 5px">
+        {{ not.tema }}
+      </h4>
+      <small style="float: right;">Creado: {{not.createAt | date:'medium'}}</small>
+      <div class="card-btn" *ngIf="usuarioService.estaAutenticado() && usuarioService.obtenerRolRoot()">
+        <i
+          class="far fa-edit btn"
+          title="Editar"
+          [routerLink]="['/aggNotice', not.id]"
+          routerLinkActive="router-link-active"></i>
+        <i
+          class="far fa-trash-alt btn"
+          title="Eliminar"
+          (click)="delete(not)"></i>
+      </div>
+      <button class="btn btn-primary" (click)="return(page)"><i class="fas fa-arrow-circle-left " title="Regresar"> Regresar</i></button>
+      <br><br>
+      
+      <div class="col-sm-12 col-md-8 col-lg-7 col-xl-5" style="display: block; margin: auto;">
+      <img
+        style="
+          -webkit-filter: drop-shadow(5px 5px 5px rgb(179, 3, 3));
+          filter: drop-shadow(1px 5px 5px rgba(153, 8, 8, 0.288)); max-width: auto;"
+        class="img-fluid"
+        src="{{ not.img_principal }}"
+        alt="{{not.tema}}"/>
+      </div>
+      <br />
+      <div
+        [innerHTML]="not.contenido | safe: 'html'"
+        style="text-align: justify; padding: 3%"
+        class="card"></div>
+    </div>
+  </div>
+</div>

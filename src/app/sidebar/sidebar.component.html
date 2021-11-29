@@ -1,0 +1,109 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a [routerLink]="['/noticias']" class="brand-link">
+    <img
+      src="assets/img/Logo_LMS.png"
+      alt="Logo UES"
+      class="img-thumbnail img-circle elevation-3 rounded mx-auto d-block"
+      style="width: 70px; margin-left: -50px;"
+    />
+    <span class="brand-text font-weight-light" style="font-size: 15px">
+      <br />
+      <p style="font-size: 14px; margin-top: -30px;">
+        <br />
+        Unidad de Técnologia de información
+      </p>
+    </span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar Menu -->
+    <!-- <nav *ngIf="usuarioService.estaAutenticado()" class="mt-2"> -->
+    <nav class="mt-2">
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false"
+      >
+        <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+
+        <!-- <li class="nav-item" *ngIf="usuarioService.obtenerRol()"> -->
+        <li class="nav-item">
+          <a
+            [routerLink]="['/noticias']"
+            routerLinkActive="active-link"
+            class="nav-link"
+          >
+            <i class="nav-icon fas fa-book"></i>
+            <p>Noticias</p>
+          </a>
+        </li>
+
+        <!-- <li class="nav-item" *ngIf="usuarioService.obtenerRol()"> -->
+        <li class="nav-item" >
+          <a [routerLink]="['/foros']" class="nav-link">
+            <i class="nav-icon far fa-comments"></i>
+            <p>Foros</p>
+          </a>
+        </li>
+
+        <!-- <li class="nav-item" *ngIf="!usuarioService.obtenerRol()"> -->
+        <li class="nav-item">
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="collapse"
+            href="#collapseExample"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample">
+            <i class="nav-icon fab fa-youtube"></i>
+            <p>Videos</p>
+          </a>
+          <div
+            class="collapse card"
+            style="background-color: rgb(59, 59, 59); overflow: -moz-hidden-unscrollable; "
+            id="collapseExample">
+            <div *ngIf="usuarioService.estaAutenticado();else videoEstudiantes">
+            <li class="nav-item" *ngFor="let op of indice">
+              <a (click)="base64(op.id)" routerLinkActive="active"  class="nav-link">
+                <!-- <i class="nav-icon fas fa-photo-video"></i> -->
+                <p style="cursor: pointer;">• {{op.tema_padre}}</p>
+              </a>
+            </li>
+          </div>
+          </div>
+        </li>
+
+        <!-- Botones de navegacion para iniciar sesion -->
+        <div class="nav-item" style="position: sticky;  bottom: 0; margin-top: 5%;">
+          <a [routerLink]="['/login']" class="nav-link">
+            <i class="fas fa-sign-in-alt"></i>
+            <p>&nbsp; Iniciar Sesión</p>
+          </a>
+          <div *ngIf="usuarioService.estaAutenticado() && usuarioService.obtenerRol()">
+          <a [routerLink]="['/updatepassword']" class="nav-link" >
+            <i class="fas fa-sign-in-alt"></i>
+            <p>&nbsp; Cambiar contraseña</p>
+          </a>
+        </div>
+        </div>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
+<ng-template #videoEstudiantes>
+  <li class="nav-item" *ngFor="let op of indice">
+    <div *ngIf="op.docente == false">
+    <a (click)="base64(op.id)" routerLinkActive="active"  class="nav-link">
+      <!-- <i class="nav-icon fas fa-photo-video"></i> -->
+      <p style="cursor: pointer;">• {{op.tema_padre}}</p>
+    </a>
+  </div>
+  </li>
+</ng-template>

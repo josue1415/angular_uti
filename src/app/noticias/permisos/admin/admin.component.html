@@ -1,0 +1,12 @@
+<div *ngIf="usuarioService.estaAutenticado() && usuarioService.obtenerRol()">
+<button class="btn btn-primary" [routerLink]="['/aggNotice']">
+  <i class="fas fa-plus-circle"> Agregar noticia</i>
+</button>
+<button
+  class="btn btn-outline-secondary"
+  style="margin-left: 2px"
+  [routerLink]="['/vigencia']"
+>
+  <i class="fas fa-cog"> Gestionar vigencia</i>
+</button>
+</div>

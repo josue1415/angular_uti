@@ -1,0 +1,64 @@
+<div class="content-wrapper">
+    <div class="container card">
+        <caption>
+            <h3>Noticias vigentes</h3>
+          </caption>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table table-striped table-responsive">
+            <thead>
+              <tr>
+                <th style="width: 60%;">Tema</th>
+                <th>Imagen</th>
+                <th>Creado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let noticeVigente of noticias">
+                <td>{{ noticeVigente.tema }}</td>
+                <td><img class="img-thumbnail img-responsive" [src]="noticeVigente.img_principal | safe: 'resourceUrl'" alt="{{noticeVigente.tema}}"></td>
+                <td>{{ noticeVigente.createAt | date: 'medium' }}</td>
+                <td><button class="btn btn-warning" style="margin-top: 0%;" (click)="expire(noticeVigente)">Expirar</button>
+                  <button class="btn btn-outline-danger" style="margin-top: 8%;" (click)="delete(noticeVigente)">Eliminar</button></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div>
+      <button class="btn btn-primary" (click)="triggerModal(modalData)" style="display: block; margin: auto;">Ver Noticias Expiradas</button>
+    </div>
+</div>
+<ng-template #modalData let-modal>
+  <div class="modal-header ">
+    <h4 class="modal-title" id="modal-basic-title">NOTICIAS EXPIRADAS</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body ">
+    <table datatable [dtOptions]="dtOptions"  class="row-border hover table table-striped table-responsive">
+      <thead>
+        <tr>
+          <th style="width: 55%;">Tema</th>
+          <th style="width: 15%;">Imagen</th>
+          <th>Creado</th>
+          <th>Expirado</th>
+          <th>Por</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let noticeExp of expiredNotice">
+          <td>{{ noticeExp.tema }}</td>
+          <td><img class="img-thumbnail img-responsive imgExp" [src]="noticeExp.img_principal | safe: 'resourceUrl'" alt="noticeExp.tema"></td>
+          <td>{{ noticeExp.createAt | date: 'medium'}}</td>              
+          <td>{{noticeExp.dateExpire | date: 'medium'}}</td>
+          <td>{{noticeExp.deleteBy}}</td>
+          <td><button class="btn btn-outline-info" style="color: black;" (click)="vigente(noticeExp)">Hacer vigente</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+  </div>
+</ng-template>

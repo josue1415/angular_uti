@@ -1,0 +1,69 @@
+<div class="content-wrapper">
+  <div class="container col-sm-12 col-md-11 col-lg-10 col-xl-11">
+    <br /><br />
+    <h2> {{noticia.id < 1 ? 'Agregar Noticias.' : 'Modificar Noticia'}}</h2>
+    <button
+      class="btn btn-primary"
+      (click)='cancelar()'
+      style="float: right"
+    >
+      Cancelar
+    </button>
+    <br />
+    <form>
+      <div class="mb-3">
+        <label for="tema" class="form-label">Ingrese el tema:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="tema"
+          name="tema"
+          aria-describedby="tema"
+          [(ngModel)]="noticia.tema"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="img" class="form-label">Ingrese imagen principal:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="img"
+          name="img"
+          aria-describedby="img"
+          placeholder="drive.google.com/uc?export=view&id=SU_CODIGO"
+          [(ngModel)]="noticia.img_principal"
+        />
+
+        <div id="emailHelp" class="form-text">
+          Para agregar la imagen, basta con pegar su URL. <br> Para mayor información revise el manual de usuario
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="contenido" class="form-label">Agregue el contenido:</label>
+      </div>
+      <div class="col-sm-12">
+        <div id="toolbar">
+          <div id="editor" style="height: 400px"></div>
+        </div>
+      </div>
+      <div id="emailHelp" class="form-text">
+        Puede agregar texto, imagenes y videos cuantas veces desee.
+      </div>
+      <br />
+      <button
+        class="btn btn-success"
+        role="button"
+        (click) = 'create()' *ngIf="noticia.id < 1; else updateelse">
+        Agregar noticia
+      </button>
+      <ng-template #updateelse>
+        <button
+        class="btn btn-success"
+        role="button"
+        (click) = 'update()'>
+        Actualizar noticia
+      </button>
+      </ng-template>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="content-wrapper">
+  <div class="container col-sm-12 col-md-11 col-lg-10 col-xl-10">
+    <br />
+  <h4>Título</h4>
+  <p>Sea específico.</p>
+  <input
+    type="text"
+    placeholder="¿Cuál es su pregunta?"
+    class="input col-md-10 col-sm-9"
+    [(ngModel)]="foro.tema"
+  />
+  <button
+    class="btn btn-secondary"
+    [routerLink]="['/foros']"
+    style="float: right; margin: 5px;">
+    Cancelar
+  </button>
+  <br /><br />
+  <h2>Descripción</h2>
+  <p>
+    Incluya toda la información que considere pertinente para ayudar a solventar
+    su duda.
+  </p>
+
+<!-- Text editor Quill -->
+<div class="col-sm-11 container">
+  <div id="toolbar">
+    <div id="editor" style="height: 200px"></div>
+    <br />
+    <div *ngIf="usuarioService.estaAutenticado();else anonimo">
+    <button id="btnCreateByUser" style="margin: 5px" class="btn btn-success" (click)="create()">
+      Publicar pregunta
+    </button>
+  </div>
+    <ng-template #anonimo>
+      <button style="margin: 5px;" class="btn btn-outline-primary" (click)="iniciarSesion()">Iniciar Sesión</button>
+      <button style="margin: 5px;" class="btn btn-outline-primary" (click)="continuarAnonimo()">Continuar anónimamente</button>
+      <button id="btnCreate" style="margin: 5px" class="btn btn-success" (click)="create()" disabled>Publicar pregunta
+      </button>
+    </ng-template>
+    <br /><br /><br /><br />
+
+    <!-- Modal de ayuda -->
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fas fa-exclamation-circle"></i> AYUDA PARA FORMULAR UNA
+          PREGUNTA
+        </h5>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Estamos para ayudarle.</p>
+        <p>
+          Antes de formular una pregunta, asegúrese de buscarla, para descartar que ésta ya haya sido respondida anteriormente.
+        </p>
+        <p>1. Resuma su pregunta: Ej. Problema al matricular manualmente.</p>
+        <p>2. Describa su problema, errores o lo que desea realizar.</p>
+      </div>
+      <div class="modal-footer">
+        <h6>Si no recibe respuestas, por favor comuníquese al correo </h6>
+        <i class="far fa-envelope"></i>
+        <a href="mailto:soporte.tifmp@ues.edu.sv"> soporte.tifmp@ues.edu.sv</a>
+      </div>
+    </ng-template>
+  </div>
+</div>
+</div>
+</div>

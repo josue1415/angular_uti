@@ -1,0 +1,83 @@
+<!-- Content Wrapper. Contains page content -->
+
+<div class="hold-transition login-page">
+  <div class="row">
+    <div class="col-md-6">
+      <br>
+      <br>
+      <br>
+      <br>
+     
+     <br>
+     
+    </div>
+    <div class="col-md-6">
+  <div class="login-box" style="position: 0;">
+    
+    <div class="login-logo">
+  
+      <img src="assets/img/ues-logo.svg" >
+  
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        
+        <p class="login-box-msg">Facultad Multidisciplinaria Paracentral</p>
+  
+        <form>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Ingrese su correo institucional"
+              [(ngModel)]="usuario.correo" name="username" id="username" autofocus>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Ingrese su contraseña" [(ngModel)]="usuario.password"
+              name="password" id="password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+  
+            <!-- /.col -->
+  
+            <div class="col-6">
+  
+            </div>
+  
+            <div class="col-6">
+              <button style="background: #374151; " (click)="login()" type="submit" class="btn btn-block text-white"><i class="fas fa-sign-in-alt"></i>
+                Iniciar sesión</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+  
+  
+        <br>
+  
+  
+      </div>
+      <!-- /.login-card-body -->
+  
+    </div>
+  
+  
+  
+  </div>
+  
+  <!-- /.login-box -->
+    </div>
+  
+  </div>
+  
+  
+  
+  

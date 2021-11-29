@@ -1,0 +1,90 @@
+<div class="content-wrapper">
+  <div *ngIf="loadingRouteConfig" style="align-content: center; text-align: center;">
+    <div class="loading">
+      <div class="loading-text">
+        <img width="150px" src="assets/img/loading.gif" alt="loadingImage" >
+        <span class="loading-text-words">U</span>
+        <span class="loading-text-words">E</span>
+        <span class="loading-text-words">S</span>
+        <span class="loading-text-words">-</span>
+        <span class="loading-text-words">F</span>
+        <span class="loading-text-words">M</span>
+        <span class="loading-text-words">P</span>
+      </div>
+    </div>
+  </div>
+  <section class="content">
+    <div class="container">
+      <br />
+      <button
+        class="btn btn-secondary"
+        (click) = "return()"
+        style="float: right">
+        Regresar
+      </button>
+      <div *ngIf="foro?.length">
+      <div *ngFor="let foro of foro; first as isFirst">
+        <div>
+          <h4>Tema: {{ foro.tema }}</h4>
+          <h6>
+            Formulado por: {{foro.createBy}} &nbsp;
+            {{ foro.createAt | date: "dd/MM/yyyy hh:mm a" }}
+          </h6>
+          <hr />
+          <p [innerHTML]= "foro.contenido">
+          </p>
+        </div>
+      </div>
+    </div>
+      <br />
+      <h4>Respuestas:</h4>
+      <div *ngFor="let resp of respuestas; let i = index">
+        <div class="card-btn" style="float: right; display: grid;" *ngIf="usuarioService.estaAutenticado() && usuarioService.obtenerRol()">
+          <i class="far fa-trash-alt btn" title="Eliminar" (click) = "delete(resp[i].id)"></i>
+        </div>
+        <div class="card card-resp item tres">
+          <div class="card-subtitle" *ngIf="resp[i].usuario != null;else nameUser">
+            <h6>
+              Por {{ resp[i].usuario}}
+            </h6>
+          </div>
+          <h5 [innerHTML]="resp[i].respuesta | safe: 'html'" class="margin"></h5>
+        </div>
+      </div>
+      <br />
+      <button
+        class="btn btn-secondary"
+        (click) = "return()"
+        style="float: right">
+        Regresar
+      </button>
+      <br />
+      <h3>Aporta tu respuesta:</h3>
+      <!-- Text editor Quill (keypress)="keyPress($event)"-->
+      <div class="col-sm-11 container">
+        <div id="toolbar">
+          <div id="editor" style="height: 200px"></div>
+          <br />
+          <div *ngIf="usuarioService.estaAutenticado();else anonimo">
+            <button id="btnCreateByUser" style="margin: 5px" class="btn btn-success" (click)="create()">
+              Publicar pregunta
+            </button>
+          </div>
+            <ng-template #anonimo>
+              <button style="margin: 5px;" class="btn btn-outline-primary" (click)="iniciarSesion()">Iniciar Sesión</button>
+              <button style="margin: 5px;" class="btn btn-outline-primary" (click)="continuarAnonimo()">Continuar anónimamente</button>
+              <button id="btnCreate" style="margin: 5px" class="btn btn-success" (click)="create()" disabled>Publicar pregunta
+              </button>
+            </ng-template>
+          <br /><br /><br /><br />
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<ng-template #nameUser>
+  <h6>
+    Por Usuario Anónimo
+  </h6>
+</ng-template>
